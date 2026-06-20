@@ -39,3 +39,19 @@ FeedNotifier (business logic, debouncing, error handling)
    │
    ▼
 PostRepository (raw Supabase queries — no Riverpod awareness)
+
+## Verification
+ 
+**RepaintBoundary** — Verified using Flutter DevTools' Performance tab in
+profile mode while scrolling the feed continuously. Frame Time (UI) and
+Frame Time (Raster) both stayed well under the 16.6ms threshold for 60fps
+across all sampled frames, with zero jank (red) frames recorded. This
+confirms the heavy `BoxShadow` on each card is rasterized once and reused
+on subsequent frames rather than being recomputed during scroll.
+ 
+**memCacheWidth** — Verified using DevTools' Memory tab while scrolling
+through the feed. Heap memory stayed flat and low throughout the scroll
+session, with external memory (where decoded image buffers live) holding
+steady well under 200MB despite continuously loading new images. This is
+consistent with images being decoded at their on-screen display size
+rather than their original resolution.
