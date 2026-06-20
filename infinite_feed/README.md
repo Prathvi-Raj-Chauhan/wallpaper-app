@@ -30,7 +30,7 @@ spam the server, but the user never feels any delay.
 
 ## Structure
 
-
+```
 UI (FeedScreen)
    │  ref.watch(feedProvider)         → rebuilds on state change
    │  ref.read(feedProvider.notifier) → calls actions
@@ -39,6 +39,7 @@ FeedNotifier (business logic, debouncing, error handling)
    │
    ▼
 PostRepository (raw Supabase queries — no Riverpod awareness)
+```
 
 ## Verification
  
